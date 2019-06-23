@@ -24,20 +24,36 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
                 </li>
+                {% if user.is_authenticated %}
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'new' %}">Post</a>
                 </li>
+                
                 <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Accounts
+                        {{ user.username }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item"> {{ user.username }} </a> 
+                        <a class="dropdown-item" href="javascript:{document.getElementById('logout').submit()}">Logout</a> 
+                        <form id="logout" method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %} <input type="hidden">
+                        </form>
+                    </div> </li>
+                {% else %}
+                <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        accounts
+                    </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">    
+                        <a class="dropdown-item" href="{% url 'signup' %}">Signup</a>
+                        <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                    </div>   
                     </div>
                 </li>
+                {% endif %}
             </ul>
         </div>
     </div>

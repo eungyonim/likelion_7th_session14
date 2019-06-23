@@ -7,5 +7,5 @@ urlpatterns = [
     path('', blog.views.index, name='index'),
     # blog app
     path('blog/', include('blog.urls')),
-
+    path('accounts/',include('accounts.urls')),
 ]
